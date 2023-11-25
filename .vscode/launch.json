@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "name": "Python: Remote Attach",
+            "type": "python",
+            "request": "launch",
+            "program": "/home/airflow/.local/bin/airflow",
+            "console": "integratedTerminal",
+            "args": [
+                "tasks",
+                "test",
+                "postgres_operator_dag",
+                "get_product",
+                "2023-10-01"
+            ]
+        }
+    ],    
+    "timeout": 600000  // Increase the timeout (in milliseconds)    
+}
