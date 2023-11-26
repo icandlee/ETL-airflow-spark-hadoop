@@ -5,7 +5,7 @@ from airflow.operators.python_operator import PythonOperator
 from airflow.operators.bash_operator import BashOperator
 from plugins import slack
 from airflow.utils.dates import days_ago
-import psycopg2
+from sqlalchemy import create_engine
 import pandas as pd
 import requests
 import os 
@@ -33,12 +33,22 @@ save_file_name = "hello.csv"
 # Function to extract data from RDB
 def extract_from_rdb():
 
+    # MySQL 연결 정보 설정
+    db_username = 'airflow'
+    db_password = 'airflow'
+    db_host = '172.30.1.80'
+    db_port = '3306'
+    database_name = 'shop'
+
+    # MySQL 연결 문자열 생성
+    connection_str = f'mysql+pymysql://{db_username}:{db_password}@{db_host}:{db_port}/{database_name}'
+
     # Connect to the RDB and extract data
     # Assuming PostgreSQL as the RDB in this example
-    conn = psycopg2.connect(database="shop", user="airflow", password="airflow", host="postgres")
+    engine = create_engine(connection_str)
     query = "SELECT * FROM product"
-    df = pd.read_sql_query(query, conn)
-    conn.close()
+    df = pd.read_sql_query(query, engine)
+    engine.dispose()
 
     # Save the extracted data to a CSV file
     df.to_csv(save_file_name, index=False) 
