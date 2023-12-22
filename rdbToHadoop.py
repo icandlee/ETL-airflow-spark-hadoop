@@ -28,7 +28,7 @@ dag = DAG(
     catchup=False,
     schedule_interval = '0 9 * * *')
 
-save_file_name = "hello.csv"
+save_file_name = "happy.csv"
 
 # Function to extract data from RDB
 def extract_from_rdb():
@@ -36,7 +36,7 @@ def extract_from_rdb():
     # MySQL 연결 정보 설정
     db_username = 'airflow'
     db_password = 'airflow'
-    db_host = '172.30.1.80'
+    db_host = 'host.docker.internal'
     db_port = '3306'
     database_name = 'shop'
 
@@ -92,7 +92,6 @@ upload_data = PythonOperator(
     python_callable = upload_to_hdfs,
     dag = dag,
 )
-
 
 
 get_products >> upload_data
