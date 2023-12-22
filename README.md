@@ -1,33 +1,51 @@
-# DataEngineer Airflow DAG
+# DataPiepeline : Airflow DAG
 
-Brief description or introduction of your project.
+이 프로젝트는 Apache Airflow를 사용하여 MariaDB에서 데이터를 추출하고 이를 Hadoop HDFS에 CSV 파일로 저장하는 DAG를 구축합니다.
 
-## Table of Contents
+## :bookmark_tabs:Contents
 
-- [Project Title](#project-title)
+- [DataPiepeline : Airflow DAG](#DataPiepeline : Airflow DAG)
   - [Table of Contents](#table-of-contents)
   - [About](#about)
-  - [Features](#features)
+  - [Features](#Features)
+  - [Prerequisites](#Prerequisites)
   - [Installation](#installation)
-  - [Usage](#usage)
-  - [Contributing](#contributing)
-  - [License](#license)
 
 ## About
-
-Provide a more detailed overview of your project. Explain what it does, why it exists, and any other relevant information.
+프로젝트 파이프라인 구조 이미지
+```bash
+dags
+├── plugins
+│   └── slack.py
+└── rdbToHadopp.py
+```
 
 ## Features
+- MariaDB 데이터 조회 및 Spark로 전처리
+- 가공된 데이터 CSV로 저장 및 Hadoop에 적재
+- Airflow로 매일 1회 
 
-List the main features or functionalities of your project. Highlight the key aspects that make it unique or useful.
+## Prerequisites
+- Python 3.9
+- MariaDB 11.1.3 
+- Apache Airflow
+- Spark
+- Hadoop, HttpFS 
 
 ## Installation
 
 Provide instructions on how to install or set up your project. Include any dependencies or prerequisites needed.
 
-Example:
-
+Install airflow usiing docker-compose
 ```bash
-$ git clone https://github.com/yourusername/yourproject.git
-$ cd yourproject
-$ npm install  # or any specific setup command
+$ mkdir airflow
+$ cd airflow
+$ curl -LfO 'https://airflow.apache.org/docs/apache-airflow/2.2.3/docker-compose.yaml'
+$ mkdir -p ./dags ./logs ./plugins
+$ echo -e "AIRFLOW_UID=$(id -u)" > .env
+```
+
+Install DB Connect module 
+```bash
+$ pip install pymysql  
+```
