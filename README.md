@@ -2,14 +2,13 @@
 
 이 프로젝트는 Apache Airflow를 사용하여 MariaDB에서 데이터를 추출하고 이를 Hadoop HDFS에 CSV 파일로 저장하는 DAG를 구축합니다.
 
-## :bookmark_tabs:Contents
+## :bookmark_tabs: Contents
 
-- [DataPiepeline : Airflow DAG](#DataPiepeline : Airflow DAG)
-  - [Table of Contents](#table-of-contents)
-  - [About](#about)
-  - [Features](#Features)
-  - [Prerequisites](#Prerequisites)
-  - [Installation](#installation)
+- [Table of Contents](#table-of-contents)
+- [About](#about)
+- [Features](#Features)
+- [Prerequisites](#Prerequisites)
+- [Installation](#installation)
 
 ## About
 프로젝트 파이프라인 구조 이미지
