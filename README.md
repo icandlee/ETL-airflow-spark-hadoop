@@ -25,9 +25,9 @@ dags
 - Airflow로 매일 1회 
 
 ## Prerequisites
-- Python 3.9
+- Python 3.8
 - MariaDB 11.1.3 
-- Apache Airflow
+- Apache Airflow 2.8.0
 - Spark
 - Hadoop, HttpFS 
 
