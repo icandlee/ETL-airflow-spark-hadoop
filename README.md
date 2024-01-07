@@ -23,7 +23,7 @@ dags
 ## Features
 - MariaDB 데이터 조회 및 Spark로 전처리
 - 가공된 데이터 CSV로 저장 및 Hadoop에 적재
-- Airflow로 매일 1회 
+- Airflow로 매일 1회 실행
 
 ## Prerequisites
 - Python 3.8
