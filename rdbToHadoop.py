@@ -38,7 +38,7 @@ def extract_from_rdb():
     db_password = 'airflow'
     db_host = 'host.docker.internal'
     db_port = '3306'
-    database_name = 'shop'
+    database_name = 'food'
 
     # MySQL 연결 문자열 생성
     connection_str = f'mysql+pymysql://{db_username}:{db_password}@{db_host}:{db_port}/{database_name}'
@@ -46,8 +46,9 @@ def extract_from_rdb():
     # Connect to the RDB and extract data
     # Assuming PostgreSQL as the RDB in this example
     engine = create_engine(connection_str)
-    query = "SELECT * FROM product"
+    query = "SELECT * FROM restr"
     df = pd.read_sql_query(query, engine)
+    print(df.head())
     engine.dispose()
 
     # Save the extracted data to a CSV file

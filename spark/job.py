@@ -12,15 +12,17 @@ try :
     # MySQL 연결 정보
     mysql_host = "host.docker.internal"
     mysql_port = "3306"
-    mysql_database = "shop"
-    mysql_table = "product"
+    mysql_database = "food"
+    mysql_table = "restr"
     mysql_user = "airflow"
     mysql_password = "airflow"
 
     # MySQL 데이터를 Spark DataFrame으로 읽어옵니다.
     jdbc_url = f"jdbc:mysql://{mysql_host}:{mysql_port}/{mysql_database}"
+    #query = f"(SELECT * FROM {mysql_table} WHERE id = 1) AS tmp"
+    query = "restr"
     df_mysql = spark.read.format("jdbc").option("url", jdbc_url) \
-        .option("dbtable", mysql_table) \
+        .option("dbtable", query) \
         .option("user", mysql_user) \
         .option("password", mysql_password) \
         .load()
