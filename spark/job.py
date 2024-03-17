@@ -34,7 +34,7 @@ try :
     file_path = spark_job_file = os.path.join(current_dir, 'file') 
     # DataFrame을 CSV 파일로 저장합니다.
     output_path = "file"
-    df_mysql.write.csv(file_path , header=True, mode="overwrite")
+    df_mysql.write.format('parquet').save(file_path , header=True, mode="overwrite")
 
     # 데이터 전처리 예시: 간단히 컬럼을 선택하여 필터링하고 출력
     #processed_df = df_mysql.select("*").filter(col("column1") > 100)
