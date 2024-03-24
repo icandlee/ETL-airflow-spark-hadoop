@@ -1,18 +1,22 @@
-from plugins import slack
-from airflow.providers.apache.spark.operators.spark_submit import SparkSubmitOperator
 from datetime import datetime, timedelta
-from airflow import DAG
 import os 
-from airflow.operators.python_operator import PythonOperator
 import requests
 
+#airflow
+from airflow.models import Variable
+from airflow.providers.apache.spark.operators.spark_submit import SparkSubmitOperator
+from airflow import DAG
+from airflow.operators.python_operator import PythonOperator
+from plugins import slack
+import pendulum
 
 DAG_ID = "proc_spark_dag" 
 
+local_tz = pendulum.timezone(Variable.get("AIRFLOW_TZ")) 
+
 default_args = {
     'owner': 'airflow',
-    'schedule_interval': '@daily',
-    'start_date': datetime(2023, 9, 28),
+    'start_date': datetime(2023, 9, 28, tzinfo=local_tz),
     'tags': ['shop'],
     'on_failure_callback': slack.on_failure_callback,
     'on_success_callback': slack.on_success_callback,
@@ -22,7 +26,7 @@ dag = DAG(
     dag_id=DAG_ID,
     default_args=default_args, 
     catchup=False,
-    schedule_interval='0 9 * * *'
+    schedule_interval='34 15 * * *'
 )
 
 save_file_name = "./spark/file" 

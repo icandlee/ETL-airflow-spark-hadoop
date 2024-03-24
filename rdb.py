@@ -4,13 +4,13 @@ from airflow import DAG
 from airflow.operators.bash import BashOperator
 from airflow.providers.postgres.operators.postgres import PostgresOperator
 from plugins import slack
+import pendulum
 # from airflow.operators.hadoop_operator import HadoopOperator
 
 DAG_ID = "postgres_operator_dag" 
 
 default_args = {
     'owner': 'airflow',
-    'schedule_interval': '@hourly',
     'start_date': datetime(2023, 9, 28),
     'tags': ['shop'],
     # 'retries': 1,
@@ -22,7 +22,7 @@ with DAG(
     dag_id=DAG_ID,
     default_args=default_args, 
     catchup=False,
-    schedule_interval = '0 */30 * * *', 
+    schedule_interval = '41 14 * * *', 
 ) as dag:
     get_products = PostgresOperator(
         postgres_conn_id="postgres_shop",

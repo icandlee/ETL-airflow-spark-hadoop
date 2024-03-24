@@ -1,7 +1,13 @@
 from airflow.models import Variable
-
-import logging
 import requests
+import pendulum 
+
+# Get your local time zone
+local_tz = pendulum.timezone(Variable.get("AIRFLOW_TZ")) 
+
+def get_local_tz(date):
+        
+    return date.astimezone(local_tz) 
 
 def on_failure_callback(context):
     """
@@ -9,6 +15,9 @@ def on_failure_callback(context):
     Define the callback to post on Slack if a failure is detected in the Workflow
     :return: operator.execute
     """
+    # Convert execution date to local time zone
+    logical_date_local = get_local_tz(context.get('logical_date'))
+    
     message = """
             :red_circle: Task Failed.
             *Dag*: {dag}
@@ -19,7 +28,7 @@ def on_failure_callback(context):
             """.format(
         dag=context.get('task_instance').dag_id,
         task=context.get('task_instance').task_id,
-        exec_date=context.get('logical_date'),
+        exec_date=logical_date_local,
         exception=context.get('exception'),
         log_url=context.get('task_instance').log_url
     )
@@ -33,6 +42,9 @@ def on_success_callback(context):
     Define the callback to post on Slack if a failure is detected in the Workflow
     :return: operator.execute
     """
+    # Convert execution date to local time zone
+    logical_date_local = get_local_tz(context.get('logical_date'))
+    
     message = """
             :smile_cat: Task Successed.
             *Dag*: {dag}
@@ -42,7 +54,7 @@ def on_success_callback(context):
             """.format(
         dag=context.get('task_instance').dag_id,
         task=context.get('task_instance').task_id,
-        exec_date=context.get('logical_date'),
+        exec_date=logical_date_local,
         exception=context.get('exception'),
         log_url=context.get('task_instance').log_url
     )
@@ -53,7 +65,7 @@ def on_success_callback(context):
 
 # def send_message_to_a_slack_channel(message, emoji, channel, access_token):
 def send_message_to_a_slack_channel(message, emoji):
-    url = "https://hooks.slack.com/services/"+Variable.get("slack_url")
+    url = "https://hooks.slack.com/services/"+Variable.get("SLACK_URL")
     headers = {
         'content-type': 'application/json',
     }
