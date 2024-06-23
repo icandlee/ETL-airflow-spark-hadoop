@@ -1,6 +1,6 @@
-# DataPiepeline : Airflow DAG
+# ETL Data Pipeline: RDBMS to HDFS Using Airflow DAG & Spark
 
-이 프로젝트는 Apache Airflow를 사용하여 MariaDB에서 데이터를 추출하고 이를 Hadoop HDFS에 CSV 파일로 저장하는 DAG를 구축합니다.
+이 프로젝트는 Apache Airflow와 Spark를 사용하여 MariaDB에서 데이터를 추출하고 이를 Hadoop HDFS에 CSV 파일로 저장하는 DAG를 구축합니다.
 
 ## :bookmark_tabs: Contents
 
