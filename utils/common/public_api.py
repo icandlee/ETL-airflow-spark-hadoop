@@ -1,13 +1,14 @@
 
 import requests
 import os 
+from base_public_api import PublicApiBase 
 
-class GoPublicDataAPI:
+class GoPublicDataAPI(PublicApiBase):
     """
     [공공데이터 포털] 공공데이터 API를 호출하기 위한 기본 클래스.
     """
     def __init__(self):
-        self.base_url = "http://apis.data.go.kr"
+        self.base_url = os.getenv("GO_PUBLIC_API_URL")
         self.service_key = os.getenv("GO_PUBLIC_API_KEY")
 
     def fetch_data(self, endpoint:str, params:dict):
@@ -21,12 +22,12 @@ class GoPublicDataAPI:
             
             
             
-class SeoulPublicDataAPI:
+class SeoulPublicDataAPI(PublicApiBase):
     """
     [서울 열린데이터광장] 공공데이터 API를 호출하기 위한 기본 클래스.
     """
     def __init__(self):
-        self.base_url = "http://openapi.seoul.go.kr:8088"
+        self.base_url = os.getenv("SEOUL_PUBLIC_API_URL")
         self.service_key = os.getenv("SEOUL_PUBLIC_API_KEY")
 
     def fetch_data(self, endpoint:str, *args):
@@ -46,7 +47,7 @@ class VworldPublicDataAPI:
     [vworld 브이월드] 공공데이터 API를 호출하기 위한 기본 클래스.
     """
     def __init__(self):
-        self.base_url = "https://api.vworld.kr/ned/data"
+        self.base_url = os.getenv("VWORLD_PUBLIC_API_URL")
         self.service_key = os.getenv("VWORLD_PUBLIC_API_KEY")
 
     def fetch_data(self, endpoint:str, params:dict):
