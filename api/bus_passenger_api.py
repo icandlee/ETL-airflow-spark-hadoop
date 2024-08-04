@@ -1,4 +1,4 @@
-from ..common.public_data_api import SeoulPublicDataAPI
+from .common.public_api import SeoulPublicDataAPI
 
 class BusPassengerData(SeoulPublicDataAPI):
     """
